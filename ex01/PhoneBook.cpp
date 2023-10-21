@@ -1,16 +1,21 @@
 #include "PhoneBook.hpp"
 
-void	PhoneBook::InitCount() {
-	this -> count  = 0;
+PhoneBook::PhoneBook() {
+	this -> count = 0;
 	this -> print_count = 0;
 }
 
 void	PhoneBook::Add() {
-		AddFname();
-		AddLname();
-		AddNickname();
-		AddAddress();
-		AddDarkestSecret();
+		if (!AddFname())
+			return ;
+		if(!AddLname())
+			return ;
+		if (!AddNickname())
+			return ;
+		if (!AddAddress())
+			return ;
+		if (!AddDarkestSecret())
+			return ;
 		AddCount();
 }
 
@@ -23,68 +28,133 @@ void	PhoneBook::AddCount() {
 		this -> print_count += 1;
 }
 
-void	PhoneBook::AddFname() {
+bool	PhoneBook::AddFname() {
 	std::string	first_name;
 
 	std::cout << "first_name ";
-	// std::cin >> first_name;
-	std::getline(std::cin, first_name);
-	book[count].SetData_Firstname(first_name);
+	if (!std::getline(std::cin, first_name)) {
+		if (std::cin.eof()) {
+			std::cin.clear();
+			std::clearerr(stdin);
+			std::cout << std::endl;
+			return (false);
+		}
+		else {
+			std::cerr << "input error" << std::endl;
+			std::exit(1);
+		}
+	}
+	book[count].SetFirstname(first_name);
+	return (true);
 }
 
-void	PhoneBook::AddLname() {
+bool	PhoneBook::AddLname() {
 	std::string	last_name;
 
 	std::cout << "last_name ";
-	// std::cin >> last_name;
-	std::getline(std::cin, last_name);
-	book[count].SetData_Lastname(last_name);
+	if (!std::getline(std::cin, last_name)) {
+		if (std::cin.eof()) {
+			std::cin.clear();
+			std::clearerr(stdin);
+			std::cout << std::endl;
+			return (false);
+		}
+		else {
+			std::cerr << "input error" << std::endl;
+			std::exit(1);
+		}
+	}
+	book[count].SetLastname(last_name);
+	return (true);
 }
 
-void	PhoneBook::AddNickname() {
+bool	PhoneBook::AddNickname() {
 	std::string nick_name;
 
 	std::cout << "nickname ";
-	std::getline(std::cin,nick_name);
-	// std::cin >> nick_name;
-	// if (std::cin.fail())
-	// 	return ;
-	// if (std::cin.fail())
-	// 	return;
-	book[count].Setdata_Nickname(nick_name);
+	if (!std::getline(std::cin,nick_name)) {
+		if (std::cin.eof()) {
+			std::cin.clear();
+			std::clearerr(stdin);
+			std::cout << std::endl;
+			return (false);
+		}
+		else {
+			std::cerr << "input error" << std::endl;
+			std::exit(1);
+		}
+	}
+	book[count].SetNickname(nick_name);
+	return (true);
 }
 
-void	PhoneBook::AddAddress() {
+bool	PhoneBook::AddAddress() {
 	std::string address;
 
 	std::cout << "phone_number ";
-	// std::cin >> address;
-	std::getline(std::cin, address);
-	book[count].Setdata_Phonenumber(address);
+	if (!std::getline(std::cin, address)) {
+		if (std::cin.eof()) {
+			std::cin.clear();
+			std::clearerr(stdin);
+			std::cout << std::endl;
+			return (false);
+		}
+		else {
+			std::cerr << "input error" << std::endl;
+			std::exit(1);
+		}
+	}
+	book[count].SetPhonenumber(address);
+	return (true);
 }
 
-void	PhoneBook::AddDarkestSecret() {
+bool	PhoneBook::AddDarkestSecret() {
 
 	std::string	darkest_secret;
+
 	std::cout << "darkest secret ";
-	// std::cin >> darkest_secret;
-	std::getline(std::cin, darkest_secret);
-	book[count].Setdata_darkest_secret(darkest_secret);
+	if (!std::getline(std::cin, darkest_secret)) {
+		if (std::cin.eof()) {
+			std::cin.clear();
+			std::clearerr(stdin);
+			std::cout << std::endl;
+			return (false);
+		}
+		else {
+			std::cerr << "input error" << std::endl;
+			std::exit(1);
+		}
+	}
+	book[count].SetDarkestSsecret(darkest_secret);
+	return (true);
 }
 
 void	PhoneBook::Print() {
+	if (print_count == 0) {
+		std::cout << "empty book" << std::endl;
+		return ;
+	}
 	for (size_t i = 0; i < print_count; i++) {
 		book[i].Print(i);
 	}
 	size_t index;
+
 	std::cout << "index ";
 	std::cin >> index;
-	// std::getline(std::cin, index);
-	// if (std::cin.fail()) {
-	// 	std::cout << "error" << std::endl;
-	// 	std::cin.clear();
-	// 	return ;
-	// }
+	if (std::cin.eof()) {
+		std::cin.ignore();
+		std::cin.clear();
+		std::clearerr(stdin);
+		std::cout << std::endl;
+		return ;
+	}
+	if (std::cin.fail()) {
+		std::cin.clear();
+		std::cout << "error index" << std::endl;
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		// std::cin.ignore();
+		return ;
+	}
 	std::cin.ignore();
 	if (0 <= index && index <= print_count) {
 		book[index].Print_ALL();
