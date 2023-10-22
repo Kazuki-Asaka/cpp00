@@ -17,7 +17,7 @@ Account::Account( int initial_deposit) {
 }
 
 Account::~Account() {
-	std::cout << "index" << _accountIndex << ";" << "amount:" << _amount << ";" << "closed" << std::endl;
+	std::cout << "index:" << _accountIndex << ";" << "amount:" << _amount << ";" << "closed" << std::endl;
 }
 
 int Account::getNbAccounts( void ) {
