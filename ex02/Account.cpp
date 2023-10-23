@@ -27,6 +27,7 @@ Account::Account( int initial_deposit) {
 }
 
 Account::~Account() {
+<<<<<<< HEAD
 	std::time_t t = std::time(NULL);
 	std::tm* now = std::localtime(&t);
 
@@ -35,6 +36,8 @@ Account::~Account() {
 	std::string out;
 	out = buff;
 	std::cout << out;
+=======
+>>>>>>> 553100892f5f6880ba9c179727a64534a77c2219
 	std::cout << "index:" << _accountIndex << ";" << "amount:" << _amount << ";" << "closed" << std::endl;
 }
 
