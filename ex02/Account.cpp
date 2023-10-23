@@ -1,5 +1,6 @@
 #include "Account.hpp"
 #include <iostream>
+#include <ctime>
 
 int Account::_nbAccounts = 0;
 int Account::_totalAmount = 0;
@@ -12,12 +13,29 @@ Account::Account( int initial_deposit) {
     _nbWithdrawals = 0;
     _accountIndex = _nbAccounts;
     _totalAmount += _amount;
+
+	std::time_t t = std::time(NULL);
+	std::tm* now = std::localtime(&t);
+
+	char	buff[128];
+	std::strftime(buff, sizeof(buff), "[%Y%m%d-%H%M%S]", now);
+	std::string out;
+	out = buff;
+	std::cout << out;
 	std::cout << "index:" << _accountIndex << ";amount:" << _amount << ";created" << std::endl;
     _nbAccounts++;
 }
 
 Account::~Account() {
-	std::cout << "index" << _accountIndex << ";" << "amount:" << _amount << ";" << "closed" << std::endl;
+	std::time_t t = std::time(NULL);
+	std::tm* now = std::localtime(&t);
+
+	char	buff[128];
+	std::strftime(buff, sizeof(buff), "[%Y%m%d-%H%M%S]", now);
+	std::string out;
+	out = buff;
+	std::cout << out;
+	std::cout << "index:" << _accountIndex << ";" << "amount:" << _amount << ";" << "closed" << std::endl;
 }
 
 int Account::getNbAccounts( void ) {
@@ -37,10 +55,26 @@ int	Account::getNbWithdrawals( void ) {
 }
 
 void Account::displayAccountsInfos( void ) {
+	std::time_t t = std::time(NULL);
+	std::tm* now = std::localtime(&t);
+
+	char	buff[128];
+	std::strftime(buff, sizeof(buff), "[%Y%m%d-%H%M%S]", now);
+	std::string out;
+	out = buff;
+	std::cout << out;
 	std::cout << "accounts:"<< _nbAccounts << ";"<< "total:" << _totalAmount << ";"<< "deposits:"<<_totalNbDeposits<<";"<<"withdrawals:"<<_totalNbWithdrawals << std::endl;
 }
 
 void Account::displayStatus( void ) const{
+	std::time_t t = std::time(NULL);
+	std::tm* now = std::localtime(&t);
+
+	char	buff[128];
+	std::strftime(buff, sizeof(buff), "[%Y%m%d-%H%M%S]", now);
+	std::string out;
+	out = buff;
+	std::cout << out;
 	std::cout << "index:" << _accountIndex << ";"
 			  << "amount:" << _amount << ";"
 			  << "deposit:" << _nbDeposits << ";"
@@ -56,6 +90,15 @@ void Account::makeDeposit( int deposit ) {
 	_nbDeposits++;
 	_totalNbDeposits++;
 	_totalAmount += deposit;
+
+	std::time_t t = std::time(NULL);
+	std::tm* now = std::localtime(&t);
+
+	char	buff[128];
+	std::strftime(buff, sizeof(buff), "[%Y%m%d-%H%M%S]", now);
+	std::string out;
+	out = buff;
+	std::cout << out;
 	std::cout << "index:" << _accountIndex << ";"
 			  << "p_amount:" << p_amount << ";"
 			  << "deposit:" << deposit << ";"
@@ -71,7 +114,15 @@ bool Account::makeWithdrawal( int withdrawal ) {
 		_amount -= withdrawal;
 		_nbWithdrawals++;
 		_totalAmount -= withdrawal;
-	std::cout << "index:" << _accountIndex << ";"
+		std::time_t t = std::time(NULL);
+		std::tm* now = std::localtime(&t);
+
+		char	buff[128];
+		std::strftime(buff, sizeof(buff), "[%Y%m%d-%H%M%S]", now);
+		std::string out;
+		out = buff;
+		std::cout << out;
+		std::cout << "index:" << _accountIndex << ";"
 			  << "p_amount:" << p_amount << ";"
 			  << "withdrawal:" << withdrawal << ";"
 			  << "amount:" << _amount << ";"
@@ -79,6 +130,14 @@ bool Account::makeWithdrawal( int withdrawal ) {
 		return(true);
 	}
 	else {
+		std::time_t t = std::time(NULL);
+		std::tm* now = std::localtime(&t);
+
+		char	buff[128];
+		std::strftime(buff, sizeof(buff), "[%Y%m%d-%H%M%S]", now);
+		std::string out;
+		out = buff;
+		std::cout << out;
 		std::cout << "index:" << _accountIndex << ";" << "p_amount:" << p_amount << ";" << "withdrawals:refused" << std::endl; 
 		return (false);
 	}
